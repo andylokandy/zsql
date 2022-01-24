@@ -1,0 +1,30 @@
+Expr = { Primary ~ (BinaryOp ~ Primary)* }
+
+Plus = { "+" }
+Minus = { "-" }
+Times = { "*" }
+Divides = { "/" }
+
+Primary = _{ Group | FunctionCall | number}
+BinaryOp = _{ Plus | Minus | Times | Divides }
+
+Group = { "(" ~ Expr ~ ")" }
+
+FunctionCall = { Ident ~ Primary }
+
+Ident = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+number = _{ int | float }
+
+int = @{
+    ("+" | "-")?
+    ~ ASCII_DIGIT+
+}
+
+float = @{
+    ("+" | "-")?
+    ~ (ASCII_DIGIT*)
+    ~ ("." ~ ASCII_DIGIT+)?
+}
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
