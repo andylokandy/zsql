@@ -50,7 +50,7 @@ fn pair_to_expr(pair: Pair<Rule>, climber: &PrecClimber<Rule>) -> Expr {
     match pair.as_rule() {
         Rule::Expr => climber.climb(pair.into_inner(), primary, infix),
         Rule::int => Expr::Number(pair.as_str().parse().unwrap()),
-        Rule::float => Expr::Float(pair.as_str().parse().unwrap()),
+        Rule::float => Expr::Float(dbg!(pair.as_str()).parse().unwrap()),
         Rule::Group => pair_to_expr(pair.into_inner().next().unwrap(), climber),
         Rule::FunctionCall => {
             let mut inner = pair.into_inner();
@@ -70,7 +70,7 @@ fn main() {
     ]);
 
     // let input = "1+2";
-    let input = "1+cos 2 *(-1000)";
+    let input = "1+cos 2 *(-1000.1)";
 
     let expr_pair = ExprParser::parse(Rule::Expr, input)
         .unwrap()

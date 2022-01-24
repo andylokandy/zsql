@@ -14,7 +14,7 @@ FunctionCall = { Ident ~ Primary }
 
 Ident = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
 
-number = _{ int | float }
+number = _{ float | int }
 
 int = @{
     ("+" | "-")?
@@ -23,8 +23,9 @@ int = @{
 
 float = @{
     ("+" | "-")?
-    ~ (ASCII_DIGIT*)
-    ~ ("." ~ ASCII_DIGIT+)?
+    ~ ASCII_DIGIT*
+    ~ "."
+    ~ ASCII_DIGIT+
 }
 
 WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
